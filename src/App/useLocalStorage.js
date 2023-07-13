@@ -45,3 +45,21 @@ function useLocalStorage(itemName, initialValue) {
   }
 
   export { useLocalStorage };
+
+  /*
+const defaultTodos = [
+  { text: 'Preparar el almuerzo', completed: true },
+  { text: 'Tomar el curso de Intro a React.js', completed: false},
+  { text: 'Llorar con la llorona', completed: false},
+  { text: 'Ir al cine', completed: false},
+  { text: 'Salir a tomar cerveza con los amigos', completed: false},
+  { text: 'Usar estados derivados', completed: true},
+  
+];*/
+//const stringifiedTodos = JSON.stringify(defaultTodos)
+//localStorage.setItem('TODOS_V1', stringifiedTodos)
+//+++Con las sentencias anteriores se pueden definir con Local Storage, los eventos iniciales de la Aplicación haciendo uso de la consola del inspector del navegador
+
+
+//localStorage.setItem('TODOS_V1', defaultTodos); 
+//localStorage.removeItem('TODOS_V1');

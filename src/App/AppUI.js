@@ -1,50 +1,52 @@
+import React from 'react';
+
 import { TodoCounter } from '../TodoCounter';
 import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
+import { TodosLoading} from '../TodosLoading';
+import { TodosError } from '../TodosError';
+import { EmptyTodos } from '../EmptyTodos';
 import { CreateTodoButton } from '../CreateTodoButton';
 
-function AppUI({
+import { TodoContext } from '../TodoContext';
+
+function AppUI() {
+
+  const {
     loading,
     error,
-    completedTodos,
-    totalTodos,
-    searchValue,
-    setSearchValue,
     searchedTodos,
     finishTodo,
     deleteTodo,
-}) {
+  } = React.useContext(TodoContext);
 
     return (
         <>
     
-          <TodoCounter 
-          completed={completedTodos} 
-          total={totalTodos}/>
-          <TodoSearch
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-             /> {/*Envío de las props*/}
+          <TodoCounter />
+          <TodoSearch /> {/*Envío de las props*/}
     
-          <TodoList>
+          
+              <TodoList>
 
-            {loading && <p>Estamos cargando...</p>}
-            {error && <p>Desespérate, hubo un error!!</p>}
-            {(!loading && searchedTodos.length === 0) && <p>¡Crea tu primer TODO!</p>}
+              {loading && <TodosLoading />}
+              {error && <TodosError />}
+              {(!loading && searchedTodos.length === 0) && <EmptyTodos />}
 
-            {searchedTodos.map(todo => (
-              <TodoItem 
-                key={todo.text} 
-                text={todo.text}
-                completed={todo.completed}
-                onComplete={() => finishTodo(todo.text)} /*Propiedad que llama a una función que actualice un estado en particular como completado*/
-                onDelete={() => deleteTodo(todo.text)}
-               /> /*Se renderizan los todos a partir del estado derivado searchedTodos*/
-    
-            ))}
+              {searchedTodos.map(todo => (
+                <TodoItem 
+                  key={todo.text} 
+                  text={todo.text}
+                  completed={todo.completed}
+                  onComplete={() => finishTodo(todo.text)} /*Propiedad que llama a una función que actualice un estado en particular como completado*/
+                  onDelete={() => deleteTodo(todo.text)}
+                /> /*Se renderizan los todos a partir del estado derivado searchedTodos*/
+      
+              ))}
+              
+            </TodoList>
             
-          </TodoList>
     
           <CreateTodoButton />
         </>
