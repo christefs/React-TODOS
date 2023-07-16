@@ -11,7 +11,7 @@ function TodoProvider({ children }) {
         error,
       } = useLocalStorage('TODOS_V1', []);
       const [searchValue, setSearchValue] = React.useState(''); /*Define valor inicial de la aplicación*/
-      const [openModal, setOpenModal] = React.useState(true);
+      const [openModal, setOpenModal] = React.useState(false); //Cierra por defecto el formulario para añadir nuevos TODOS
 
       const completedTodos = todos.filter(todo => !!todo.completed).length;
       const totalTodos = todos.length;
@@ -27,7 +27,16 @@ function TodoProvider({ children }) {
       ); /*Estado derivado a partir del estado de todos para que filtre y devuelva coincidencias que incluyan en alguna parte el texto del estado searchValue. De esta manera al escribir una porción de texto en
        la entrada, se desplegarán solo los todos que coincidan con el texto ingresado y sin discriminar mayúsculas de minúsculas.*/
     
-       
+      const addTodo = (text) => {
+        const newTodos = [...todos]; /*Crea una copia del array todos*/
+        newTodos.push({
+          text,
+          completed: false,
+        });
+        
+        saveTodos(newTodos);
+
+      }
     
       const finishTodo = (text) => {
         const newTodos = [...todos]; /*Crea una copia del array todos*/
@@ -58,11 +67,12 @@ function TodoProvider({ children }) {
             searchValue,
             setSearchValue,
             searchedTodos,
+            addTodo,
             finishTodo,
             deleteTodo,
             openModal,
             setOpenModal,
-        }}>
+        }}> {/*Toda la información que se requiera compartir en el contexto*/}
             {children}
         </TodoContext.Provider>
     )
