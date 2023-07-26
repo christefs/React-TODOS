@@ -17,7 +17,7 @@ function TodoProvider({ children }) {
       const totalTodos = todos.length;
     
       
-    
+    /*
       const searchedTodos = todos.filter(
         (todo) => {
           const todoText = todo.text.toLowerCase();
@@ -26,7 +26,13 @@ function TodoProvider({ children }) {
         } 
       ); /*Estado derivado a partir del estado de todos para que filtre y devuelva coincidencias que incluyan en alguna parte el texto del estado searchValue. De esta manera al escribir una porción de texto en
        la entrada, se desplegarán solo los todos que coincidan con el texto ingresado y sin discriminar mayúsculas de minúsculas.*/
-    
+        
+       const searchedTodos = todos.filter((todo) => {
+        const todoText = todo?.text?.toLowerCase();
+        const searchText = searchValue.toLowerCase();
+        return todoText && todoText.includes(searchText); 
+      });
+      
       const addTodo = (text) => {
         const newTodos = [...todos]; /*Crea una copia del array todos*/
         newTodos.push({
